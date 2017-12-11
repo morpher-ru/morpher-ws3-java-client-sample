@@ -12,119 +12,12 @@ class RussianDemo extends Log {
         nameDeclensionsExample(russianClient);
         adjectivesGendersExample(russianClient);
         adjectivizeExample(russianClient);
-        spellWithCorrectionExample(russianClient);
         numberSpellingExample(russianClient);
-    }
-
-    private static void spellWithCorrectionExample(RussianClient russianClient) throws IOException, AccessDeniedException {
-        try {
-            // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
-            // Для local сервиса токен не нужен.
-
-            // Русский язык
-            // Добавляем новое пользовательское исправление
-            CorrectionForms singular = new CorrectionForms();
-            singular.nominative = "Кошка";
-            singular.dative = "Пантере";
-
-            CorrectionForms plural = new CorrectionForms();
-            plural.dative = "Пантерам";
-
-            CorrectionEntry correctionEntry = new CorrectionEntry();
-            correctionEntry.singular = singular;
-            correctionEntry.plural = plural;
-
-            russianClient.addOrUpdateUserDict(correctionEntry);
-
-            log("Склонение с исправлением:");
-            DeclensionResult declensionWithCorrection = russianClient.declension("Кошка");
-            log("            Именительный падеж: %s", declensionWithCorrection.nominative);
-            log("               Дательный падеж: %s", declensionWithCorrection.dative);
-            log("Дательный падеж множественного: %s", declensionWithCorrection.plural.dative);
-            log("");
-
-            log("Получаем список всех исправлений:");
-            List<CorrectionEntry> corrections = russianClient.fetchAllFromUserDictionary();
-            for (CorrectionEntry correction : corrections) {
-                log(correction.singular.nominative + ":");
-                log("   Р: " + correction.singular.genitive);
-                log("   Д: " + correction.singular.dative);
-                log("   В: " + correction.singular.accusative);
-                log("   Т: " + correction.singular.instrumental);
-                log("   П: " + correction.singular.prepositional);
-                log("   М: " + correction.singular.locative);
-                if (correction.plural != null) {
-                    log("   М_Р: " + correction.plural.genitive);
-                    log("   М_Д: " + correction.plural.dative);
-                    log("   М_В: " + correction.plural.accusative);
-                    log("   М_Т: " + correction.plural.instrumental);
-                    log("   М_П: " + correction.plural.prepositional);
-                    log("   М_М: " + correction.plural.locative);
-                }
-            }
-            log("");
-
-            log("Удаляем исправление.");
-            // True если исправление было удалено успешно, false если исправление не найдено.
-            boolean found = russianClient.removeFromUserDictionary("Кошка");
-            log("Исправление найдено: %s", found ? "Да" : "Нет");
-
-            log("Склонение после удаления исправления:");
-            DeclensionResult spellWithoutCorrection = russianClient.declension("Кошка");
-            log("            Именительный падеж: %s", spellWithoutCorrection.nominative);
-            log("               Дательный падеж: %s", spellWithoutCorrection.dative);
-            log("Дательный падеж множественного: %s", spellWithoutCorrection.plural.dative);
-            log("");
-        } catch (NumeralsDeclensionNotSupportedException e) {
-            log(e.getMessage());
-        } catch (ArgumentNotRussianException e) {
-            log(e.getMessage());
-        } catch (InvalidFlagsException e) {
-            log(e.getMessage());
-        } catch (ArgumentEmptyException e) {
-            log(e.getMessage());
-        }
-    }
-
-    private static void adjectivizeExample(RussianClient russianClient) throws IOException, AccessDeniedException {
-        log("Образование прилагательных:");
-        List<String> adjectives = russianClient.adjectivize("Мытищи");
-        for (String adjective : adjectives) {
-            log(adjective);
-        }
-
-        log("");
-    }
-
-    private static void numberSpellingExample(RussianClient russianClient) throws IOException, AccessDeniedException {
-        log("Сумма прописью:");
-
-        try {
-            int number = 2513;
-            NumberSpellingResult result = russianClient.spell(number, "рубль");
-            log("В размере %s (%s) %s",
-                    number,
-                    result.numberDeclension.genitive,
-                    result.unitDeclension.genitive);
-        } catch (ArgumentNotRussianException e) {
-            throw new RuntimeException("Морфер не считает слово рубль русским.", e);
-        } catch (ArgumentEmptyException e) {
-            throw new RuntimeException("Морфер считает слово рубль пустой строкой.", e);
-        }
-    }
-
-    private static void adjectivesGendersExample(RussianClient russianClient) throws IOException, AccessDeniedException {
-        log("Склонение прилагательных по родам:");
-
-        AdjectiveGendersResult adjectiveGenders = russianClient.adjectiveGenders("уважаемый");
-        log("Женский род:         " + adjectiveGenders.feminine);
-        log("Средний род:         " + adjectiveGenders.neuter);
-        log("Множественное число: " + adjectiveGenders.plural);
-        log("");
+        spellWithCorrectionExample(russianClient);
     }
 
     private static void declensionsAndGenderExample(RussianClient russianClient) throws IOException, AccessDeniedException {
-        log("Склонение на русском языке:");
+        log("Склонение по падежам на русском языке:");
 
         try {
             DeclensionResult result = russianClient.declension("Соединенное королевство");
@@ -181,6 +74,112 @@ class RussianDemo extends Log {
             log("Ф: " + nameResult.fullName.surname);
             log("И: " + nameResult.fullName.name);
             log("О: " + nameResult.fullName.patronymic);
+            log("");
+        } catch (NumeralsDeclensionNotSupportedException e) {
+            log(e.getMessage());
+        } catch (ArgumentNotRussianException e) {
+            log(e.getMessage());
+        } catch (InvalidFlagsException e) {
+            log(e.getMessage());
+        } catch (ArgumentEmptyException e) {
+            log(e.getMessage());
+        }
+    }
+
+    private static void adjectivesGendersExample(RussianClient russianClient) throws IOException, AccessDeniedException {
+        log("Склонение прилагательных по родам:");
+
+        AdjectiveGendersResult adjectiveGenders = russianClient.adjectiveGenders("уважаемый");
+        log("Женский род:         " + adjectiveGenders.feminine);
+        log("Средний род:         " + adjectiveGenders.neuter);
+        log("Множественное число: " + adjectiveGenders.plural);
+        log("");
+    }
+
+    private static void adjectivizeExample(RussianClient russianClient) throws IOException, AccessDeniedException {
+        log("Образование прилагательных от географических названий:");
+        List<String> adjectives = russianClient.adjectivize("Мытищи");
+        for (String adjective : adjectives) {
+            log(adjective);
+        }
+
+        log("");
+    }
+
+    private static void numberSpellingExample(RussianClient russianClient) throws IOException, AccessDeniedException {
+        log("Сумма прописью:");
+
+        try {
+            int number = 2513;
+            NumberSpellingResult result = russianClient.spell(number, "рубль");
+            log("В размере %s (%s) %s",
+                    number,
+                    result.numberDeclension.genitive,
+                    result.unitDeclension.genitive);
+        } catch (ArgumentNotRussianException e) {
+            throw new RuntimeException("Морфер не считает слово рубль русским.", e);
+        } catch (ArgumentEmptyException e) {
+            throw new RuntimeException("Морфер считает слово рубль пустой строкой.", e);
+        }
+    }
+
+    private static void spellWithCorrectionExample(RussianClient russianClient) throws IOException, AccessDeniedException {
+        try {
+            // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
+            // Для local сервиса токен не нужен.
+
+            // Добавляем новое пользовательское исправление
+            CorrectionForms singular = new CorrectionForms();
+            singular.nominative = "Кошка";
+            singular.dative = "Пантере";
+
+            CorrectionForms plural = new CorrectionForms();
+            plural.dative = "Пантерам";
+
+            CorrectionEntry correctionEntry = new CorrectionEntry();
+            correctionEntry.singular = singular;
+            correctionEntry.plural = plural;
+
+            russianClient.addOrUpdateUserDict(correctionEntry);
+
+            log("Склонение с исправлением:");
+            DeclensionResult declensionWithCorrection = russianClient.declension("Кошка");
+            log("            Именительный падеж: %s", declensionWithCorrection.nominative);
+            log("               Дательный падеж: %s", declensionWithCorrection.dative);
+            log("Дательный падеж множественного: %s", declensionWithCorrection.plural.dative);
+            log("");
+
+            log("Получаем список всех исправлений:");
+            List<CorrectionEntry> corrections = russianClient.fetchAllFromUserDictionary();
+            for (CorrectionEntry correction : corrections) {
+                log(correction.singular.nominative + ":");
+                log("   Р: " + correction.singular.genitive);
+                log("   Д: " + correction.singular.dative);
+                log("   В: " + correction.singular.accusative);
+                log("   Т: " + correction.singular.instrumental);
+                log("   П: " + correction.singular.prepositional);
+                log("   М: " + correction.singular.locative);
+                if (correction.plural != null) {
+                    log("   М_Р: " + correction.plural.genitive);
+                    log("   М_Д: " + correction.plural.dative);
+                    log("   М_В: " + correction.plural.accusative);
+                    log("   М_Т: " + correction.plural.instrumental);
+                    log("   М_П: " + correction.plural.prepositional);
+                    log("   М_М: " + correction.plural.locative);
+                }
+            }
+            log("");
+
+            log("Удаляем исправление.");
+            // True если исправление было удалено успешно, false если исправление не найдено.
+            boolean found = russianClient.removeFromUserDictionary("Кошка");
+            log("Исправление найдено: %s", found ? "Да" : "Нет");
+
+            log("Склонение после удаления исправления:");
+            DeclensionResult spellWithoutCorrection = russianClient.declension("Кошка");
+            log("            Именительный падеж: %s", spellWithoutCorrection.nominative);
+            log("               Дательный падеж: %s", spellWithoutCorrection.dative);
+            log("Дательный падеж множественного: %s", spellWithoutCorrection.plural.dative);
             log("");
         } catch (NumeralsDeclensionNotSupportedException e) {
             log(e.getMessage());
