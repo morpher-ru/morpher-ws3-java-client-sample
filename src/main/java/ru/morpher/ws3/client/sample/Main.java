@@ -2,7 +2,7 @@ package ru.morpher.ws3.client.sample;
 
 import ru.morpher.ws3.*;
 
-public class UsageExample extends Log {
+public class Main extends Log {
 
     public static void main(String[] argv) {
         Client client = new ClientBuilder()
