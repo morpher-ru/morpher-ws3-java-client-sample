@@ -2,7 +2,7 @@
 
 # morpher-ws3-java-client-sample
 
-Пример использования [Java-клиента](https://github.com/morpher-ru/morpher-ws3-java-client) веб-сервиса ["Морфер" 3.0](http://morpher.ru/ws3)
+Пример использования библиотеки [ru.morpher.ws3.client](https://github.com/morpher-ru/morpher-ws3-java-client) для вызова функций веб-сервиса ["Морфер" 3.0](http://morpher.ru/ws3).
 ***
 
 ## Сборка и зависимости
