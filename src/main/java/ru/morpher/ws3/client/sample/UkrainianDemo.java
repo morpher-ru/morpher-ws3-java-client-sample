@@ -14,6 +14,7 @@ class UkrainianDemo extends Log {
     }
 
     private static void spellWithCorrectionExample(UkrainianClient ukrainianClient) throws IOException, AccessDeniedException {
+        log("Демонстрация работы с пользовательским словарем:");
         // Функции пользовательского словаря для ws3.morpher.ru работают только при наличии токена.
         // Для local сервиса токен не нужен.
 
