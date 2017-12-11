@@ -2,8 +2,6 @@ package ru.morpher.ws3.client.sample;
 
 import ru.morpher.ws3.*;
 
-import java.io.IOException;
-
 public class UsageExample extends Log {
 
     public static void main(String[] argv) {
@@ -13,7 +11,7 @@ public class UsageExample extends Log {
             // Если вам нужен https, укажите https вместо http:
             .useUrl("http://ws3.morpher.ru")
             // Рекомендуется зарегистрироваться (http://morpher.ru/Register.aspx) и указать свой токен.
-            // Данный токет нужен только для демонстрации функций работы с пользовательским словарем:
+            // Данный токен нужен только для демонстрации функций работы с пользовательским словарем:
             .useToken("a8dab5fe-7a47-4c17-84ea-46facb7d19fe")
             // Создаем клиент с указанными параметрами:
             .build();
@@ -24,7 +22,7 @@ public class UsageExample extends Log {
 
             log("Остаток запросов на сегодня: " + client.queriesLeftForToday());
             log("");
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             log("Ошибка коммуникации: " + e.getMessage());
         } catch (AccessDeniedException e) {
             log("Ошибка доступа: " + e.getMessage());
