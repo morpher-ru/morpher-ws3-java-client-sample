@@ -46,7 +46,7 @@ class RussianDemo extends Log {
             log("Определение рода на русском языке:");
             log("Род: %s", result.gender != null ? result.gender : PREMIUM);
             log("");
-            log("Провоцируем ошибку");
+            log("Провоцируем ошибку:");
             russianClient.declension("Vasily Pupkin");
         } catch (NumeralsDeclensionNotSupportedException e) {
             // Во входном словосочетании было числительное, например "три кота".
@@ -59,6 +59,7 @@ class RussianDemo extends Log {
             // и просклоняйте словосочетание "пользователь Vasily Pupkin".
             log(e.getMessage());
         } catch (InvalidFlagsException e) {
+            // Указаны несовместимые флаги, например одновременно "мужской" и "женский".
             log(e.getMessage());
         } catch (ArgumentEmptyException e) {
             log(e.getMessage());
