@@ -1,12 +1,14 @@
 [![](https://travis-ci.org/morpher-ru/morpher-ws3-java-client-sample.svg?branch=master)](https://travis-ci.org/morpher-ru/morpher-ws3-java-client-sample)
+
 # morpher-ws3-java-client-sample
-Пример использования [Java-клиента](https://github.com/morpher-ru/morpher-ws3-java-client) для веб-сервиса ["Морфер" 3.0](http://morpher.ru/ws3)
+
+Пример использования библиотеки [ru.morpher.ws3.client](https://github.com/morpher-ru/morpher-ws3-java-client) для вызова функций веб-сервиса ["Морфер" 3.0](http://morpher.ru/ws3).
 ***
 
 ## Сборка и зависимости
-Для использования клиента в своем проекте стоит подключить библоитеку через Maven.
+Для использования библиотеки в своем проекте рекомендуется подключить ее через Maven:
 
-Для начала добавить в файл pom.xml репозиторий который содержит библиотеку:
+Добавьте в файл pom.xml репозиторий, который содержит библиотеку:
 
 ```xml
     <repositories>
