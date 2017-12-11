@@ -27,7 +27,7 @@ class RussianDemo extends Log {
             log(" Винительный падеж: %s", result.accusative);
             log("Творительный падеж: %s", result.instrumental);
             log("  Предложный падеж: %s", result.prepositional);
-            log("     Местный падеж: %s", result.prepositionalWithO != null ? result.prepositionalWithO : PREMIUM);
+            log("Предложный с предлогом: %s", result.prepositionalWithO != null ? result.prepositionalWithO : PREMIUM);
             log("               Где? %s", result.where != null ? result.where : PREMIUM);
             log("              Куда? %s", result.to != null ? result.to : PREMIUM);
             log("            Откуда? %s", result.from != null ? result.from : PREMIUM);
@@ -39,7 +39,7 @@ class RussianDemo extends Log {
                 log(" Винительный падеж: %s", result.plural.accusative);
                 log("Творительный падеж: %s", result.plural.instrumental);
                 log("  Предложный падеж: %s", result.plural.prepositional);
-                log("     Местный падеж: %s", result.prepositionalWithO != null ? result.prepositionalWithO : PREMIUM);
+                log("Предложный с предлогом: %s", result.prepositionalWithO != null ? result.prepositionalWithO : PREMIUM);
             }
             log("");
 
@@ -47,7 +47,7 @@ class RussianDemo extends Log {
             log("Род: %s", result.gender != null ? result.gender : PREMIUM);
             log("");
             log("Провоцируем ошибку");
-            russianClient.declension("wuf");
+            russianClient.declension("Vasily Pupkin");
         } catch (NumeralsDeclensionNotSupportedException e) {
             // Во входном словосочетании было числительное, например "три кота".
             // Пока Морфер не умеет их склонять.
