@@ -7,22 +7,16 @@ import java.io.IOException;
 public class UsageExample extends Log {
 
     public static void main(String[] argv) {
-        // Вы можете передать токен в качестве аргумента конструктора.
-        // String token = "17ce56c3-934f-453a-9ef7-cc1feec4e344";
-        // !!! Не используйте этот токен в production !!!
-        //
-        // Если вы используете "Морфер.Сервер" (http://morpher.ru/webservice/local/),
-        // то вы можете указать в качестве url адрес вашего локального сервера:
-        // String url = "http://ws3.morpher.ru"
-        //
-        // Client client = new Client(token, url);
-        // Для удобства можно использовать встроенный билдер:
-
-
         Client client = new ClientBuilder()
-                .useToken("a8dab5fe-7a47-4c17-84ea-46facb7d19fe")
-                .useUrl("http://ws3.morpher.ru")
-                .build();
+            // Если вы используете "Морфер.Сервер" (http://morpher.ru/webservice/local/),
+            // то вы можете указать в качестве url адрес вашего локального сервера.
+            // Если вам нужен https, укажите https вместо http:
+            .useUrl("http://ws3.morpher.ru")
+            // Рекомендуется зарегистрироваться (http://morpher.ru/Register.aspx) и указать свой токен.
+            // Данный токет нужен только для демонстрации функций работы с пользовательским словарем:
+            .useToken("a8dab5fe-7a47-4c17-84ea-46facb7d19fe")
+            // Создаем клиент с указанными параметрами:
+            .build();
 
         try {
             RussianDemo.demo(client.russian());
